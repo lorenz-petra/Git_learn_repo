@@ -1,14 +1,16 @@
 #==========================================================
 #
+# Quick GUIDE for a distribbuted version control system for proper code management
+# Author:c lorenz-petra
+#
 # GIT  and GITHUB USEFUL commands / tips
 #  https://github.com/joshnh/Git-Commands
 #
 # Oxford examples
 # https://github.com/OxfordRSE/git-github-course
 # 
+# About the GIT BASH https://stackoverflow.com/questions/22310007/differences-between-git-scm-msysgit-git-for-windows
 #
-# Quick guide for a distribbuted version control system for proper code management
-# Author:c lorenz-petra
 #
 #==========================================================
 
@@ -177,6 +179,14 @@ git commit -a -m "Lots of changes to various files"
 
 
 
+
+
+# ----------------- DIFFS
+diff # by ddefault shows you differences that take you form between HEAD to current status
+
+
+
+
 -------------------  MISTAKES
 
 # revert a commit
@@ -259,6 +269,33 @@ Note that a FORK  is a github CLONE of a repo
 
 
 
+
+
+# ---------------------- WORKFLOW example
+mkdir GIT_learning
+
+ cd GIT_learning/
+
+git init .
+
+[ Create a README file and a code file via text editor...]
+notepad MyStdPythonHeader.py
+notepad README.md
+
+git add README.md    # track it
+git commit -m "What is the purpose of this"
+
+git add MyStdPythonHeader.py
+git commit -m "Just to add a quick python script"
+
+
+git commit -a -m "Lazy global update and commit command - since all files have been previously added"
+
+
+git remote add origin https://github.com/lorenz-petra/Git_learn_repo.git
+
+
+git push -u origin master
 
 
 
