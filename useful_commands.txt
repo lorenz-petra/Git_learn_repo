@@ -1,7 +1,7 @@
 #==========================================================
 #
 # Quick GUIDE for a distribbuted version control system for proper code management
-# Author:c lorenz-petra
+# Author: lorenz-petra
 #
 # GIT  and GITHUB USEFUL commands / tips
 #  https://github.com/joshnh/Git-Commands
@@ -11,12 +11,18 @@
 # 
 # About the GIT BASH https://stackoverflow.com/questions/22310007/differences-between-git-scm-msysgit-git-for-windows
 #
-#
+# OFFICIAL tutorial from GITHUB team
+# https://guides.github.com/activities/hello-world/
 #==========================================================
 
 
 #============ FIRST some BASH ...
 # Bash basics commands:
+
+# shift + insert to copy or paste
+
+#ctrl + C to get out of a dull terminal ...
+
 
 print the current working directory (pwd)
 
@@ -70,6 +76,9 @@ winpty python
 
 
 
+
+
+
 #---------------------- INITIALIZE
 mkdir newProj
 cd newProj
@@ -84,14 +93,22 @@ touch example.txt
 ls -A
 
 
+# chec status - it tells you various info e.g. on which branch you are.. (virtual copies etc.)
+git status
+
+# check the history of the various commits
+git log    (or concisely git log --oneline)
+
+# check differences between files (if they have been added to the stagin area ...)
+git diff
+
 
 
 #---------------------- STAGING  
 # it's a 2-stage or 2-step  process to go from local to staging area to shared repo
 # (every time you want to "stage" the evolution of a file)
 
-# chec status - it tells you on which branch you are.. (virtual copies etc.)
-git status
+
 
 
 # to track status in the staging area, it tells git that this is the version of the file you want to care about - it effectively saves the local copy into the staging:
@@ -108,12 +125,10 @@ git commit -m "Created test file example"
 
 
 
-# check the history of the various commits
-git log    (or concisely git log --oneline)
 
 
-#
-git diff
+
+
 
 # if you have done some mistake and want to go back to a certain version 
 git reset
@@ -125,15 +140,6 @@ git branch
 
 # to retrieve the most updated version from the shared on-line REPO
 git checkout
-
-
-
-
-
-#ctrl + C to get out of a dull terminal ...
-
-# shift + insert to copy or paste
-
 
 
 
@@ -150,10 +156,6 @@ notepad example.txt     # you can also use nano ...
 
 
 # a WORKING TREE is clean if  there are no differences between the latest local version and the staging and the commited ones.
-
-# git diff will show us additions or removals of recent version (normally called b)  Vs the one in the REPO (normally called a).
-
-
 
 
 
@@ -182,12 +184,35 @@ git commit -a -m "Lots of changes to various files"
 
 
 # ----------------- DIFFS
-diff # by ddefault shows you differences that take you form between HEAD to current status
+git diff # by ddefault shows you differences that take you form between HEAD to current status
+
+git diff will show us additions ("+") or removals ("-") of working copy local version (normally called b)  Vs the one in the REPO (normally called a).
+ 
+(use the space-bar key to navigate through the diff output on the GIT Bash terminal)
+
+Take also a look at the advanced command:
+git diff --staged
+
+
+
+
+
+# ---------------------- # ---------------------- 
+#  VERSIONS of various commits
+git checkout HEAD filename.txt      # access the latest commit version
+git checkhout HEAD~1 filename.txt   #version of the penultimate commit
+
+
+
 
 
 
 
 -------------------  MISTAKES
+# reset to rewind (not recommended in team-work , where instead it's more ethical to proceed by fixing some amendements).
+
+git reset filename.txt # to undo staged modifications
+
 
 # revert a commit
 git revert cf4efdf (where cf4efdf is the identifier like 
@@ -199,29 +224,32 @@ git revert --continue
 # confilct markers
 
 
-# reset to rewind (not recommended in team-work , where instead it's more ethical to proceed by fixing some amendements).
 
 
 
+
+
+
+
+
+#----------------- PUSH & PULL
+
+# establishing a connection with an online repo
 # add a remote  - it's not a synchronization etc
+git remote add origin https://github.com/lorenz-petra/FeNOgram.git
+ 
+# we are telling git that that REPO exists out there in that location
+and I am giving it the name origin.
+The reason why "origin" it saves normally a bit of typing
 
- git remote add origin https://github.com/lorenz-petra/FeNOgram.git
- # we are telling git that that REPO exists out there in that location
- and I am giving it the name origin.
- The reason why "origin" it saves normally a bit of typing
 
-
- # if you want to re-set the origin remote link:
+# if you want to re-set the origin remote link:
  git remote set-url origin https://github.com/lorenz-petra/FeNOgram.git
 
 # Notice that a remote does not establish any sync or notifications
 # Always add .git to the link from the REPO you are referring to
 # Once you sync you no longer need internet connections
 
-
-
-
-#----------------- PUSH & PULL
 
 
 git push -u origin master
@@ -271,6 +299,23 @@ Note that a FORK  is a github CLONE of a repo
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ---------------------- # ---------------------- 
 # ---------------------- WORKFLOW example
 mkdir GIT_learning
 
@@ -292,10 +337,41 @@ git commit -m "Just to add a quick python script"
 git commit -a -m "Lazy global update and commit command - since all files have been previously added"
 
 
+# establish a temporary connection from local to a online repo to tell where you are about to do a push or a pull from
 git remote add origin https://github.com/lorenz-petra/Git_learn_repo.git
 
 
+# send ot the online repo all your recent modificaiton to the local repo
+git push -u origin master # it is now saved
+
+
+# WARNING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# You come back to work on a project....
+# First check that there have not been any changes .. if yes, PULL those changes to your local machine prior to start editing the code !!!!
+
+# Do some code changes in external python editor or Spyder IDE ...
+# go back to Git Bash
+
+
+
+# check the differences between the remote most updated version and your version
+git diff
+
+
+# check the version status (working tree clean?)
+git status
+
+git log --oneline
+# to check the histories of commits and again making sure that before you commit n push, you have worked on the most updated version... otherwise again the first one wins, so the second ones have to figure out how to carefully fix it...(mereging the version etc.)
+
+
+#  If everyhtin is OK, again commit n push ...
+git commit -a -m "Lazy global update and commit command - since all files have been previously added"
+
 git push -u origin master
+# if fail, you might have to re-setablish the connection via the remote command:
+git remote add origin https://github.com/lorenz-petra/FeNOgram.git
+
 
 
 
